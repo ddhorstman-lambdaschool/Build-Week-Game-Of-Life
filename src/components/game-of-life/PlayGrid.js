@@ -3,9 +3,7 @@ import Grid from "./Grid";
 export default class PlayGrid extends React.Component {
   constructor(props) {
     super(props);
-    let { color } = props;
     this.state = {
-      color,
       generation: 0,
       isPlaying: false,
       speed: 1,
@@ -64,7 +62,7 @@ export default class PlayGrid extends React.Component {
         <h3>Generation {this.state.generation}</h3>
         <Grid
           grid={this.props.grid}
-          color={this.state.color}
+          color={this.props.color}
           toggleCell={this.state.isPlaying ? () => {} : this.props.toggleCell}
         />
         <div className='ButtonBar'>

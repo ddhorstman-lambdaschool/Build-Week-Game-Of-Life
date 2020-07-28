@@ -6,8 +6,8 @@ import Presets from "./game-of-life/Presets";
 export default class GameOfLife extends React.Component {
   constructor(props) {
     super(props);
-    let { side = 25, color = "#000000" } = props;
-    this.state = { side, color, grid: [] };
+    let { side = 25 } = props;
+    this.state = { side, grid: [] };
   }
   componentDidMount() {
     this.resetGrid();
@@ -90,8 +90,9 @@ export default class GameOfLife extends React.Component {
   render() {
     return (
       <div className='GameOfLife'>
-        <Presets loadPreset={this.loadPreset} />
+        <Presets loadPreset={this.loadPreset} color={this.props.color} />
         <PlayGrid
+          color={this.props.color}
           grid={this.state.grid}
           toggleCell={this.toggleCell}
           resetGrid={this.resetGrid}

@@ -21,7 +21,12 @@ export default function Presets(props) {
       </nav>
 
       {presetDescriptions[currentPreset].items.map(p => (
-        <Preset key={p.name} loadPreset={props.loadPreset} {...p} />
+        <Preset
+          color={props.color}
+          key={p.name}
+          loadPreset={props.loadPreset}
+          {...p}
+        />
       ))}
     </div>
   );
