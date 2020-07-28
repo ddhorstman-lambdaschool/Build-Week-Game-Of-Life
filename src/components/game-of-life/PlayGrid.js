@@ -10,7 +10,11 @@ export default class PlayGrid extends React.Component {
     return (
       <div className='PlayGrid'>
         <h3>Generation {this.state.generation}</h3>
-        <Grid grid={this.props.grid} color={this.state.color} />
+        <Grid
+          grid={this.props.grid}
+          color={this.state.color}
+          toggleCell={this.props.toggleCell}
+        />
         <div>
           <button>{this.state.isPlaying ? "Pause" : "Play"}</button>
           <button>Step Forward</button>

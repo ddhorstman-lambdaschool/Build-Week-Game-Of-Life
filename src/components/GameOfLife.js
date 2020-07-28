@@ -7,7 +7,7 @@ export default class GameOfLife extends React.Component {
   constructor(props) {
     super(props);
     let { side = 25, color = "#000000" } = props;
-    this.state = { side, color, grid: [[0]] };
+    this.state = { side, color, grid: [] };
   }
   componentDidMount() {
     this.resetGrid();
