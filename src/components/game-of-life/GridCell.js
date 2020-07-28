@@ -7,11 +7,9 @@ export default function GridCell(props) {
       data-x={x}
       data-y={y}
       style={{
-        border: "1px solid black",
         backgroundColor: alive ? color : "white",
-        padding: "5px",
       }}
-      />
+    />
     // >{alive}</td>
   );
 }

@@ -6,9 +6,9 @@ export default function Grid(props) {
   toggleCell = e => {
     e.preventDefault();
     e.stopPropagation();
-    const x = e.target.attributes["data-x"].nodeValue;
-    const y = e.target.attributes["data-y"].nodeValue;
-    props.toggleCell(x, y);
+    const x = e.target.attributes["data-x"]?.nodeValue;
+    const y = e.target.attributes["data-y"]?.nodeValue;
+    if (x && y) props.toggleCell(x, y);
   };
   return (
     <table className='Grid' onClick={toggleCell}>
