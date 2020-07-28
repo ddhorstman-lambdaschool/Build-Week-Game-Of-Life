@@ -56,9 +56,11 @@ export default class GameOfLife extends React.Component {
         }
       }
     }
-    for(let item in changes){
-      console.log(item)
+    for(let coords in changes){
+      let [x,y] = coords.split(",");
+      grid[x][y] = changes[coords]
     }
+    this.setState({grid})
     console.log("Finished in", Date.now() - startTime, "milliseconds");
   };
   loadPreset = preset => {
