@@ -1,7 +1,7 @@
 import React from "react";
 import GridCell from "./GridCell";
 export default function Grid(props) {
-  let { grid, color = "#000000", toggleCell = () => {} } = props;
+  let { grid, color = "#000000", toggleCell = () => {}, size = 8 } = props;
   if (grid.length === 0) return <div />;
   toggleCell = e => {
     e.preventDefault();
@@ -21,6 +21,7 @@ export default function Grid(props) {
                   key={x + "," + y}
                   x={x}
                   y={y}
+                  size={size}
                   alive={state}
                   color={color}
                 />
