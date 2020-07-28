@@ -22,6 +22,7 @@ export default class GameOfLife extends React.Component {
       newGrid.push([...innerGrid]);
     }
     this.setState({ grid: newGrid });
+    return newGrid;
   };
   toggleCell = (x, y) => {
     let { grid } = this.state;
@@ -64,7 +65,17 @@ export default class GameOfLife extends React.Component {
     //console.log("Finished in", Date.now() - startTime, "milliseconds");
   };
   loadPreset = preset => {
-    console.log(preset);
+    let grid = this.resetGrid();
+    const startX =
+      Math.floor((grid.length - preset.length) / 2);
+    const startY =
+      Math.floor((grid[0].length - preset[0].length) / 2);
+    for (let i = 0; i < preset.length; i++) {
+      for (let j = 0; j < preset[0].length; j++) {
+        grid[i + startX][j + startY] = preset[i][j];
+      }
+    }
+    this.setState({ grid });
   };
   render() {
     return (
