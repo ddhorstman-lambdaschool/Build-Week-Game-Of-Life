@@ -33,33 +33,35 @@ export default class GameOfLife extends React.Component {
     //let startTime = Date.now();
     let changes = {};
     let { grid, side } = this.state;
-    for (let i = 0; i < side; i++) {
-      const left = i === 0 ? side - 1 : i - 1;
-      const right = i === side - 1 ? 0 : i + 1;
-      for (let j = 0; j < side; j++) {
-        const alive = grid[i][j];
-        const above = j === 0 ? side - 1 : j - 1;
-        const below = j === side - 1 ? 0 : j + 1;
-        const neighborSum =
-          grid[left][above] +
-          grid[left][below] +
-          grid[right][above] +
-          grid[right][below] +
-          grid[left][j] +
-          grid[right][j] +
-          grid[i][above] +
-          grid[i][below];
-        if (!alive && neighborSum === 3) {
-          changes[`${i},${j}`] = 1;
-        }
-        if (alive && (neighborSum < 2 || neighborSum > 3)) {
-          changes[`${i},${j}`] = 0;
+    for (let cycles = 0; cycles < n; cycles++) {
+      for (let i = 0; i < side; i++) {
+        const left = i === 0 ? side - 1 : i - 1;
+        const right = i === side - 1 ? 0 : i + 1;
+        for (let j = 0; j < side; j++) {
+          const alive = grid[i][j];
+          const above = j === 0 ? side - 1 : j - 1;
+          const below = j === side - 1 ? 0 : j + 1;
+          const neighborSum =
+            grid[left][above] +
+            grid[left][below] +
+            grid[right][above] +
+            grid[right][below] +
+            grid[left][j] +
+            grid[right][j] +
+            grid[i][above] +
+            grid[i][below];
+          if (!alive && neighborSum === 3) {
+            changes[`${i},${j}`] = 1;
+          }
+          if (alive && (neighborSum < 2 || neighborSum > 3)) {
+            changes[`${i},${j}`] = 0;
+          }
         }
       }
-    }
-    for (let coords in changes) {
-      let [x, y] = coords.split(",");
-      grid[x][y] = changes[coords];
+      for (let coords in changes) {
+        let [x, y] = coords.split(",");
+        grid[x][y] = changes[coords];
+      }
     }
     this.setState({ grid });
     //console.log("Finished in", Date.now() - startTime, "milliseconds");

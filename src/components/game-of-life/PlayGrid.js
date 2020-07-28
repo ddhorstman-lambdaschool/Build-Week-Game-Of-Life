@@ -10,6 +10,7 @@ export default class PlayGrid extends React.Component {
       isPlaying: false,
       speed: 1,
       intervalCode: null,
+      stepInterval: 1,
     };
   }
   togglePlaying = () => {
@@ -20,14 +21,18 @@ export default class PlayGrid extends React.Component {
     } else {
       const intervalCode = window.setInterval(() => {
         this.props.progressGame();
-        this.setState({ generation: this.state.generation + 1 });
+        this.setState({
+          generation: this.state.generation + this.state.stepInterval,
+        });
       }, 1000 / this.state.speed);
       this.setState({ intervalCode });
     }
   };
-  progressGame = (n = 1) => {
-    this.setState({ generation: this.state.generation + 1 });
-    this.props.progressGame(n);
+  progressGame = () => {
+    this.setState({
+      generation: this.state.generation + this.state.stepInterval,
+    });
+    this.props.progressGame(this.state.stepInterval);
   };
   resetGame = () => {
     this.props.resetGrid();
@@ -42,11 +47,16 @@ export default class PlayGrid extends React.Component {
       window.clearInterval(this.state.intervalCode);
       const intervalCode = window.setInterval(() => {
         this.props.progressGame();
-        this.setState({ generation: this.state.generation + 1 });
+        this.setState({
+          generation: this.state.generation + this.state.stepInterval,
+        });
       }, 1000 / this.state.speed);
       this.setState({ intervalCode });
     }
     this.setState({ speed: value });
+  };
+  setInterval = ({ target: { value } }) => {
+    this.setState({ stepInterval: Number(value) });
   };
   render() {
     return (
@@ -62,7 +72,13 @@ export default class PlayGrid extends React.Component {
             <button onClick={this.togglePlaying}>
               {this.state.isPlaying ? "Stop" : "Play"}
             </button>
-            <button onClick={this.progressGame}>Step Forward</button>
+            <button onClick={this.progressGame}>Step forward by</button>
+            <input
+              type='number'
+              size='1'
+              value={this.state.stepInterval}
+              onChange={this.setInterval}
+            ></input>
             <button onClick={this.resetGame}>Reset</button>
           </div>
           <label>
