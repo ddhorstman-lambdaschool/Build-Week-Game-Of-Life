@@ -36,3 +36,28 @@ code {
     align-items: top;
   } 
 }
+.Presets {
+  nav {
+    display:flex;
+    .category {
+      background-color: white;
+      color: grey;
+      margin:2px;
+      padding:0px 2px;
+      border: 1px solid grey;
+      &.active {
+        color:black;
+        border-color: black;
+      }
+    }
+  }
+}
+
+.Preset {
+  display: flex;
+  flex-flow: column nowrap;
+  margin: 5px;
+  & > * {
+    margin: 0px;
+  }
+}

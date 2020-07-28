@@ -29,7 +29,7 @@ export default class GameOfLife extends React.Component {
     this.setState({ grid });
   };
   progressGame = (n = 1) => {
-    let startTime = Date.now();
+    //let startTime = Date.now();
     let changes = {};
     let { grid, side } = this.state;
     for (let i = 0; i < side; i++) {
@@ -56,12 +56,12 @@ export default class GameOfLife extends React.Component {
         }
       }
     }
-    for(let coords in changes){
-      let [x,y] = coords.split(",");
-      grid[x][y] = changes[coords]
+    for (let coords in changes) {
+      let [x, y] = coords.split(",");
+      grid[x][y] = changes[coords];
     }
-    this.setState({grid})
-    console.log("Finished in", Date.now() - startTime, "milliseconds");
+    this.setState({ grid });
+    //console.log("Finished in", Date.now() - startTime, "milliseconds");
   };
   loadPreset = preset => {
     console.log(preset);
@@ -69,13 +69,13 @@ export default class GameOfLife extends React.Component {
   render() {
     return (
       <div className='GameOfLife'>
+        <Presets loadPreset={this.loadPreset} />
         <PlayGrid
           grid={this.state.grid}
           toggleCell={this.toggleCell}
           resetGrid={this.resetGrid}
           progressGame={this.progressGame}
         />
-        <Presets loadPreset={this.loadPreset} />
         <Rules />
       </div>
     );

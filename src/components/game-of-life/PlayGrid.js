@@ -60,7 +60,7 @@ export default class PlayGrid extends React.Component {
         <div className='ButtonBar'>
           <div>
             <button onClick={this.togglePlaying}>
-              {this.state.isPlaying ? "Pause" : "Play"}
+              {this.state.isPlaying ? "Stop" : "Play"}
             </button>
             <button onClick={this.progressGame}>Step Forward</button>
             <button onClick={this.resetGame}>Reset</button>
