@@ -34,8 +34,8 @@ export default class PlayGrid extends React.Component {
     });
     this.props.progressGame(this.state.stepInterval);
   };
-  resetGame = () => {
-    this.props.resetGrid();
+  resetGame = random => () => {
+    this.props.resetGrid(random);
     this.setState({ generation: 0, isPlaying: false });
     if (this.state.intervalCode) {
       window.clearInterval(this.state.intervalCode);
@@ -68,32 +68,33 @@ export default class PlayGrid extends React.Component {
           toggleCell={this.state.isPlaying ? () => {} : this.props.toggleCell}
         />
         <div className='ButtonBar'>
-          <div>
+          <div className='ButtonRow'>
             <button onClick={this.togglePlaying}>
               {this.state.isPlaying ? "Stop" : "Play"}
             </button>
-            <button style={{ paddingRight: "1px" }} onClick={this.progressGame}>
-              Step forward by
-            </button>
+            <label>
+              {`${this.state.speed}x`}
+              <input
+                type='range'
+                min={1}
+                max={10}
+                value={this.state.speed}
+                onInput={this.setSpeed}
+                onChange={() => {}}
+              />
+            </label>
+          </div>
+          <div className='ButtonRow'>
+            <button onClick={this.progressGame}>Step forward by</button>
             <input
               type='number'
               size='1'
               value={this.state.stepInterval}
               onChange={this.setInterval}
             ></input>
-            <button onClick={this.resetGame}>Reset</button>
           </div>
-          <label>
-            {`${this.state.speed}x`}
-            <input
-              type='range'
-              min={1}
-              max={10}
-              value={this.state.speed}
-              onInput={this.setSpeed}
-              onChange={() => {}}
-            />
-          </label>
+          <button onClick={this.resetGame("random")}>Randomize!</button>
+          <button onClick={this.resetGame()}>Reset</button>
         </div>
       </div>
     );

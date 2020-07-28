@@ -12,14 +12,24 @@ export default class GameOfLife extends React.Component {
   componentDidMount() {
     this.resetGrid();
   }
-  resetGrid = () => {
+  resetGrid = random => {
     let newGrid = [];
     let innerGrid = [];
-    for (let i = 0; i < this.state.side; i++) {
-      innerGrid.push(0);
-    }
-    for (let i = 0; i < this.state.side; i++) {
-      newGrid.push([...innerGrid]);
+    if (random) {
+      for (let i = 0; i < this.state.side; i++) {
+        innerGrid = [];
+        for (let j = 0; j < this.state.side; j++) {
+          innerGrid.push(Math.round(Math.random()));
+        }
+        newGrid.push(innerGrid);
+      }
+    } else {
+      for (let i = 0; i < this.state.side; i++) {
+        innerGrid.push(0);
+      }
+      for (let i = 0; i < this.state.side; i++) {
+        newGrid.push([...innerGrid]);
+      }
     }
     this.setState({ grid: newGrid });
     return newGrid;

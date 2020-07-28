@@ -28,8 +28,14 @@ code {
 
 .ButtonBar {
   display:flex;
+  flex-flow: column;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
+  .ButtonRow {
+    display:flex;
+    flex-flow: row;
+    align-items: center;
+  }
   label {
     display:flex;
     align-items: top;
