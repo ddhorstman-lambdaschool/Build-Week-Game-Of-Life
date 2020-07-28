@@ -4,11 +4,14 @@ import PlayGrid from "./game-of-life/PlayGrid";
 import Presets from "./game-of-life/Presets";
 
 export default class GameOfLife extends React.Component {
-  state = {
-    side: 25,
-    grid: [[0]],
-    color: "#000000",
-  };
+  constructor(props) {
+    super(props);
+    let { side = 25, color = "#000000" } = props;
+    this.state = { side, color, grid: [[0]] };
+  }
+  componentDidMount() {
+    this.resetGrid();
+  }
   resetGrid = () => {
     let newGrid = [];
     let innerGrid = [];
@@ -25,14 +28,18 @@ export default class GameOfLife extends React.Component {
     grid[x][y] = !grid[x][y];
     this.setState({ grid });
   };
-  componentDidMount() {
-    this.resetGrid();
-  }
+  loadPreset = preset => {
+    console.log(preset);
+  };
   render() {
     return (
-      <div className='game'>
-        <PlayGrid />
-        <Presets />
+      <div className='GameOfLife'>
+        <PlayGrid
+          grid={this.state.grid}
+          toggleCell={this.toggleCell}
+          resetGrid={this.resetGrid}
+        />
+        <Presets loadPreset={this.loadPreset} />
         <Rules />
       </div>
     );
