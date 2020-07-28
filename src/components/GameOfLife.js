@@ -19,7 +19,7 @@ export default class GameOfLife extends React.Component {
       innerGrid.push(0);
     }
     for (let i = 0; i < this.state.side; i++) {
-      newGrid.push(innerGrid);
+      newGrid.push([...innerGrid]);
     }
     this.setState({ grid: newGrid });
   };

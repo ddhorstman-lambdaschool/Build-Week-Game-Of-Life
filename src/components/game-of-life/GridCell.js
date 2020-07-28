@@ -12,6 +12,6 @@ export default function GridCell(props) {
         padding: "5px",
       }}
       />
-    // >{alive?1:0}</td>
+    // >{alive}</td>
   );
 }
