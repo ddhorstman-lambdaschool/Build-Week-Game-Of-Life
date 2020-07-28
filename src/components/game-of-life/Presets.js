@@ -7,7 +7,7 @@ export default function Presets(props) {
   );
   return (
     <div className='Presets'>
-      <h3>Presets:</h3>
+      <h3 style={{ color: props.color }}>Presets:</h3>
       <nav>
         {Object.entries(presetDescriptions).map(([key, category]) => (
           <button

@@ -59,7 +59,9 @@ export default class PlayGrid extends React.Component {
   render() {
     return (
       <div className='PlayGrid'>
-        <h3>Generation {this.state.generation}</h3>
+        <h3 style={{ color: this.props.color }}>
+          Generation {this.state.generation}
+        </h3>
         <Grid
           grid={this.props.grid}
           color={this.props.color}

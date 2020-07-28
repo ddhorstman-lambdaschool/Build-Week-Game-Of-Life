@@ -98,7 +98,7 @@ export default class GameOfLife extends React.Component {
           resetGrid={this.resetGrid}
           progressGame={this.progressGame}
         />
-        <Rules />
+        <Rules color={this.props.color} />
       </div>
     );
   }

@@ -1,10 +1,11 @@
 import React from "react";
 
 export default function Rules(props) {
+  let { color } = props;
   return (
     <div className='rules'>
-      <h2>Rules</h2>
-      <h3>The Algorithm:</h3>
+      <h2 style={{ color }}>Rules</h2>
+      <h3 style={{ color }}>The Algorithm:</h3>
       <ul>
         <li>Filled cells are "alive" - empty cells are "dead"</li>
         <li>
@@ -19,14 +20,20 @@ export default function Rules(props) {
           reproduction.
         </li>
       </ul>
-      <h3>The Game:</h3>
+      <h3 style={{ color }}>The Game:</h3>
       <ul>
         <li>
           Create the initial board state by clicking on cells to toggle them
           between alive and dead.
         </li>
-        <li>You can also load a preset as a starting point, or hit "Randomize" for a random starting point.</li>
-        <li>Start the animation by pressing "Play", or move it forward once with "Step Forward".</li>
+        <li>
+          You can also load a preset as a starting point, or hit "Randomize" for
+          a random starting point.
+        </li>
+        <li>
+          Start the animation by pressing "Play", or move it forward once with
+          "Step Forward".
+        </li>
         <li>You can stop the animation at any time by pressing "Stop".</li>
       </ul>
     </div>

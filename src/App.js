@@ -6,13 +6,13 @@ function App() {
   const [color, setColor] = React.useState("#000000");
   function updateColor({ target: { value } }) {
     setColor(value);
-    console.log(value)
+    console.log(value);
   }
   return (
     <div className='App'>
       <Header color={color} updateColor={updateColor} />
       <GameOfLife color={color} />
-      <AlgorithmInfo />
+      <AlgorithmInfo color={color} />
     </div>
   );
 }
