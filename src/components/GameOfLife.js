@@ -24,7 +24,9 @@ export default class GameOfLife extends React.Component {
     this.setState({ grid: newGrid });
   };
   toggleCell = (x, y) => {
+    console.log("called"+Date.now())
     let { grid } = this.state;
+    console.log(x,y)
     grid[x][y] = !grid[x][y];
     this.setState({ grid });
   };

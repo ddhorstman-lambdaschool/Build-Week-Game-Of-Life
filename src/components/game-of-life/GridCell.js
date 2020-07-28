@@ -1,13 +1,17 @@
 import React from "react";
 
 export default function GridCell(props) {
+  let { x, y, color, alive } = props;
   return (
     <td
+      data-x={x}
+      data-y={y}
       style={{
         border: "1px solid black",
-        backgroundColor: props.alive ? props.color : "white",
+        backgroundColor: alive ? color : "white",
         padding: "5px",
       }}
-    />
+      />
+    // >{alive?1:0}</td>
   );
 }
