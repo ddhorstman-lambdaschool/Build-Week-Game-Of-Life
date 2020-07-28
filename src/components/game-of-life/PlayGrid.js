@@ -72,7 +72,9 @@ export default class PlayGrid extends React.Component {
             <button onClick={this.togglePlaying}>
               {this.state.isPlaying ? "Stop" : "Play"}
             </button>
-            <button onClick={this.progressGame}>Step forward by</button>
+            <button style={{ paddingRight: "1px" }} onClick={this.progressGame}>
+              Step forward by
+            </button>
             <input
               type='number'
               size='1'
