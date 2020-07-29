@@ -15,6 +15,8 @@ function DisplaySettings(props) {
   const minGrid = 10;
   const [localSide, setLocalSide] = React.useState(side);
   const [showError, setShowError] = React.useState(false);
+  const [timeoutCode, setTimeoutCode] = React.useState(null);
+  const [isLoading, setLoadingState] = React.useState(false);
   const extractAndUpdateColor = ({ target: { value } }) => updateColor(value);
   const extractAndUpdateCellSize = ({ target: { value } }) => {
     if (value < 1) value = 1;
@@ -22,10 +24,19 @@ function DisplaySettings(props) {
     changeCellSize(value);
   };
   const extractAndUpdateGridSide = ({ target: { value } }) => {
+    if (value < 0) value = 0;
     setLocalSide(value);
     if (value >= minGrid && value <= maxGrid) {
       setShowError(false);
-      resizeGrid(value);
+      if (timeoutCode) {
+        window.clearTimeout(timeoutCode);
+      }
+      setLoadingState(true);
+      const newTimeout = window.setTimeout(() => {
+        resizeGrid(value);
+        setLoadingState(false);
+      }, 200);
+      setTimeoutCode(newTimeout);
     } else {
       setShowError(true);
     }
@@ -37,14 +48,14 @@ function DisplaySettings(props) {
         <input type='color' value={color} onChange={extractAndUpdateColor} />
       </label>
       <label>
-        {"Grid Dimensions: "}
+        {isLoading ? "Loading....." : "Grid Dimensions: "}
         <input
           type='number'
           size='3'
           value={localSide}
           onChange={extractAndUpdateGridSide}
         />
-        x{side}
+        {!isLoading && `x${side}`}
       </label>
       {showError && (
         <div style={{ color: "red" }}>
