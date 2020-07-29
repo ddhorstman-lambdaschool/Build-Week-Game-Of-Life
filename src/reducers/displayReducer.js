@@ -2,7 +2,7 @@ import { ACTIONS } from "../actions";
 
 const initialState = {
   color: "#000000",
-  cellSize: 6,
+  cellSize: 5.0,
 };
 
 export default function displayReducer(state = initialState, action) {

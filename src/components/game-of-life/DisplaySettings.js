@@ -11,17 +11,19 @@ function DisplaySettings(props) {
     changeCellSize,
     updateColor,
   } = props;
+  const maxGrid = 100;
+  const minGrid = 10;
   const [localSide, setLocalSide] = React.useState(side);
   const [showError, setShowError] = React.useState(false);
   const extractAndUpdateColor = ({ target: { value } }) => updateColor(value);
   const extractAndUpdateCellSize = ({ target: { value } }) => {
     if (value < 1) value = 1;
-    if (value > 10) value = 10;
+    if (value > 20) value = 20;
     changeCellSize(value);
   };
   const extractAndUpdateGridSide = ({ target: { value } }) => {
     setLocalSide(value);
-    if (value >= 10 && value <= 100) {
+    if (value >= minGrid && value <= maxGrid) {
       setShowError(false);
       resizeGrid(value);
     } else {
@@ -38,7 +40,7 @@ function DisplaySettings(props) {
         {"Grid Dimensions: "}
         <input
           type='number'
-          size='2'
+          size='3'
           value={localSide}
           onChange={extractAndUpdateGridSide}
         />
@@ -46,14 +48,15 @@ function DisplaySettings(props) {
       </label>
       {showError && (
         <div style={{ color: "red" }}>
-          Must be between 25 and 100 cells
+          Must be between {minGrid} and {maxGrid} cells
         </div>
       )}
       <label>
         {"Cell Size: "}
         <input
           type='number'
-          size='2'
+          step='0.1'
+          size='4'
           value={cellSize}
           onChange={extractAndUpdateCellSize}
         />

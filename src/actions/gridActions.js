@@ -1,3 +1,5 @@
+import { changeCellSize } from "./displayActions";
+
 export const GRID_ACTIONS = {
   PROGRESS_GAME: "PROGRESS_GAME",
   TOGGLE_CELL: "TOGGLE_CELL",
@@ -28,7 +30,11 @@ export const progressGame = cycles => ({
   type: GRID_ACTIONS.PROGRESS_GAME,
   payload: { cycles },
 });
-export const resizeGrid = side => ({
-  type: GRID_ACTIONS.RESIZE_GRID,
-  payload: { side },
-});
+export const resizeGrid = side => dispatch => {
+  dispatch({
+    type: GRID_ACTIONS.RESIZE_GRID,
+    payload: { side },
+  });
+  const targetCellSize = Number((200 / side).toFixed(1));
+  dispatch(changeCellSize(targetCellSize));
+};
