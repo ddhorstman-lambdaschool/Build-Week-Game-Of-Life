@@ -1,6 +1,14 @@
 import React from "react";
 import Grid from "./Grid";
-export default class PlayGrid extends React.Component {
+import { connect } from "react-redux";
+import {
+  toggleCell,
+  resetGrid,
+  randomizeGrid,
+  progressGame,
+} from "../../actions";
+
+class PlayGrid extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -10,6 +18,9 @@ export default class PlayGrid extends React.Component {
       intervalCode: null,
       stepInterval: 1,
     };
+  }
+  componentDidMount(){
+    this.props.resetGrid();
   }
   togglePlaying = () => {
     this.setState({ isPlaying: !this.state.isPlaying });
@@ -33,7 +44,7 @@ export default class PlayGrid extends React.Component {
     this.props.progressGame(this.state.stepInterval);
   };
   resetGame = random => () => {
-    this.props.resetGrid(random);
+    random ? this.props.randomizeGrid() : this.props.resetGrid();
     this.setState({ generation: 0, isPlaying: false });
     if (this.state.intervalCode) {
       window.clearInterval(this.state.intervalCode);
@@ -64,7 +75,6 @@ export default class PlayGrid extends React.Component {
         </h3>
         <Grid
           grid={this.props.grid}
-          color={this.props.color}
           toggleCell={this.state.isPlaying ? () => {} : this.props.toggleCell}
         />
         <div className='ButtonBar'>
@@ -100,3 +110,13 @@ export default class PlayGrid extends React.Component {
     );
   }
 }
+const mapPropsToState = ({ grid: { grid } }, props) => ({
+  ...props,
+  grid,
+});
+export default connect(mapPropsToState, {
+  toggleCell,
+  resetGrid,
+  randomizeGrid,
+  progressGame,
+})(PlayGrid);

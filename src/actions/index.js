@@ -1,15 +1,9 @@
+import { COLOR_ACTIONS } from "./colorActions";
+import { GRID_ACTIONS } from "./gridActions";
+export * from "./colorActions";
+export * from "./gridActions";
+
 export const ACTIONS = {
-  UPDATE_COLOR: "UPDATE_COLOR",
-  UPDATE_CELL: "UPDATE_CELL",
-  LOAD_PRESET: "LOAD_PRESET",
-  RESET_GRID: "RESET_GRID",
+  ...COLOR_ACTIONS,
+  ...GRID_ACTIONS,
 };
-
-
-export const updateColor = color => ({
-  type: ACTIONS.UPDATE_COLOR,
-  payload: { color },
-});
-export const updateCell = () => {};
-export const loadPreset = () => {};
-export const resetGrid = () => {};
