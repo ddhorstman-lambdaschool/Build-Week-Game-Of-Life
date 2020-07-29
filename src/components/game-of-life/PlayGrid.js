@@ -17,9 +17,10 @@ class PlayGrid extends React.Component {
       speed: 1,
       intervalCode: null,
       stepInterval: 1,
+      toggledCount: 0,
     };
   }
-  componentDidMount(){
+  componentDidMount() {
     this.props.resetGrid();
   }
   togglePlaying = () => {
@@ -36,6 +37,10 @@ class PlayGrid extends React.Component {
       }, 1000 / this.state.speed);
       this.setState({ intervalCode });
     }
+  };
+  toggleCellAndUpdate = coordinates => {
+    this.setState({ toggledCount: this.state.toggledCount + 1 });
+    this.props.toggleCell(coordinates);
   };
   progressGame = () => {
     this.setState({
@@ -65,6 +70,7 @@ class PlayGrid extends React.Component {
     this.setState({ speed: value });
   };
   setInterval = ({ target: { value } }) => {
+    if (value < 0) value = 0;
     this.setState({ stepInterval: Number(value) });
   };
   render() {
@@ -75,7 +81,9 @@ class PlayGrid extends React.Component {
         </h3>
         <Grid
           grid={this.props.grid}
-          toggleCell={this.state.isPlaying ? () => {} : this.props.toggleCell}
+          toggleCell={
+            this.state.isPlaying ? () => {} : this.toggleCellAndUpdate
+          }
         />
         <div className='ButtonBar'>
           <div className='ButtonRow'>
