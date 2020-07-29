@@ -10,6 +10,7 @@ function DisplaySettings(props) {
     resizeGrid,
     changeCellSize,
     updateColor,
+    resetGame,
   } = props;
   const maxGrid = 100;
   const minGrid = 10;
@@ -24,6 +25,7 @@ function DisplaySettings(props) {
     changeCellSize(value);
   };
   const extractAndUpdateGridSide = ({ target: { value } }) => {
+    resetGame()
     if (value < 0) value = 0;
     setLocalSide(value);
     if (value >= minGrid && value <= maxGrid) {

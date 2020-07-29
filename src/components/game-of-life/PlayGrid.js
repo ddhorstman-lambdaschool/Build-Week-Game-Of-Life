@@ -119,7 +119,7 @@ class PlayGrid extends React.Component {
             <button onClick={this.resetGame("random")}>Randomize!</button>
             <button onClick={this.resetGame()}>Reset</button>
           </div>
-          <DisplaySettings />
+          <DisplaySettings resetGame={this.resetGame()}/>
         </div>
       </div>
     );
