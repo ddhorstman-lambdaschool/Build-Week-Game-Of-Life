@@ -2,6 +2,7 @@ import { ACTIONS } from "../actions";
 const initialState = {
   side: 40,
   grid: [],
+  errorMessage: null,
 };
 const createGrid = (random, { side }) => {
   let newGrid = [];
@@ -24,17 +25,23 @@ const createGrid = (random, { side }) => {
   }
   return newGrid;
 };
-const createPresetGrid = (preset, state) => {
-  let grid = createGrid(null, state);
+const createPresetGrid = (preset, { side }) => {
+  let grid = createGrid(null, { side });
   const startX = Math.floor((grid.length - preset.length) / 2);
   const startY = Math.floor((grid[0].length - preset[0].length) / 2);
-  if (startX < 0 || startY < 0) return grid;
+  if (startX < 0 || startY < 0) {
+    side = Math.max(preset.length, preset[0].length);
+    return {
+      grid,
+      errorMessage: `Error: Grid must be at least ${side}x${side} for this preset`,
+    };
+  }
   for (let i = 0; i < preset.length; i++) {
     for (let j = 0; j < preset[0].length; j++) {
       grid[i + startX][j + startY] = preset[i][j];
     }
   }
-  return grid;
+  return { grid };
 };
 const toggleCell = ({ x, y }, { grid }) => {
   grid[x][y] = grid[x][y] ? 0 : 1;
@@ -79,6 +86,7 @@ const progressGame = (n = 1, { grid, side }) => {
 };
 
 export default function gridReducer(state = initialState, action) {
+  state.errorMessage = null;
   switch (action.type) {
     case ACTIONS.RESIZE_GRID:
       const { side } = action.payload;
@@ -88,7 +96,11 @@ export default function gridReducer(state = initialState, action) {
     case ACTIONS.RESET_GRID:
       return { ...state, grid: createGrid(null, state) };
     case ACTIONS.LOAD_PRESET:
-      return { ...state, grid: createPresetGrid(action.payload.preset, state) };
+      const { grid, errorMessage } = createPresetGrid(
+        action.payload.preset,
+        state
+      );
+      return { ...state, grid, errorMessage };
     case ACTIONS.TOGGLE_CELL:
       return {
         ...state,

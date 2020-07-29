@@ -86,6 +86,9 @@ class PlayGrid extends React.Component {
             this.state.isPlaying ? () => {} : this.toggleCellAndUpdate
           }
         />
+        {this.props.errorMessage && (
+          <div style={{ color: "red" }}>{this.props.errorMessage}</div>
+        )}
         <div className='PlayGridFooter'>
           <div className='PlaybackControls'>
             <div className='ButtonRow'>
@@ -122,9 +125,13 @@ class PlayGrid extends React.Component {
     );
   }
 }
-const mapPropsToState = ({ grid: { grid }, display: { color } }, props) => ({
+const mapPropsToState = (
+  { grid: { grid, errorMessage }, display: { color } },
+  props
+) => ({
   ...props,
   grid,
+  errorMessage,
   color,
 });
 export default connect(mapPropsToState, {
