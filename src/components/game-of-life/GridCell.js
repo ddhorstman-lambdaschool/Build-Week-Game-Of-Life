@@ -3,7 +3,8 @@ import React from "react";
 import { connect } from "react-redux";
 
 function GridCell(props) {
-  let { x, y, color, alive, size = 8 } = props;
+  let { x, y, color, alive, size, cellSize } = props;
+  if (!size) size = cellSize;
   return (
     <td
       data-x={x}
@@ -18,6 +19,10 @@ function GridCell(props) {
 }
 
 export default connect(
-  ({ color: { color } }, props) => ({ ...props, color }),
+  ({ display: { color, cellSize } }, props) => ({
+    ...props,
+    color,
+    cellSize,
+  }),
   null
 )(GridCell);

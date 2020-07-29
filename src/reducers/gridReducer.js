@@ -1,6 +1,6 @@
 import { ACTIONS } from "../actions";
 const initialState = {
-  side: 25,
+  side: 40,
   grid: [],
 };
 const createGrid = (random, { side }) => {
@@ -79,6 +79,9 @@ const progressGame = (n = 1, { grid, side }) => {
 
 export default function gridReducer(state = initialState, action) {
   switch (action.type) {
+    case ACTIONS.RESIZE_GRID:
+      const { side } = action.payload;
+      return { ...state, side, grid: createGrid(null, { side }) };
     case ACTIONS.RANDOMIZE_GRID:
       return { ...state, grid: createGrid("random", state) };
     case ACTIONS.RESET_GRID:

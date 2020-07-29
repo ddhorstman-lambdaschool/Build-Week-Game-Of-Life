@@ -1,5 +1,6 @@
 import React from "react";
 import Grid from "./Grid";
+import DisplaySettings from "./DisplaySettings";
 import { connect } from "react-redux";
 import {
   toggleCell,
@@ -85,42 +86,46 @@ class PlayGrid extends React.Component {
             this.state.isPlaying ? () => {} : this.toggleCellAndUpdate
           }
         />
-        <div className='ButtonBar'>
-          <div className='ButtonRow'>
-            <button onClick={this.togglePlaying}>
-              {this.state.isPlaying ? "Stop" : "Play"}
-            </button>
-            <label>
-              {`${this.state.speed}x`}
+        <div className='PlayGridFooter'>
+          <div className='PlaybackControls'>
+            <div className='ButtonRow'>
+              <button onClick={this.togglePlaying}>
+                {this.state.isPlaying ? "Stop" : "Play"}
+              </button>
+              <label>
+                {`${this.state.speed}x`}
+                <input
+                  type='range'
+                  min={1}
+                  max={10}
+                  value={this.state.speed}
+                  onInput={this.setSpeed}
+                  onChange={() => {}}
+                />
+              </label>
+            </div>
+            <div className='ButtonRow'>
+              <button onClick={this.progressGame}>Step forward by</button>
               <input
-                type='range'
-                min={1}
-                max={10}
-                value={this.state.speed}
-                onInput={this.setSpeed}
-                onChange={() => {}}
-              />
-            </label>
+                type='number'
+                size='1'
+                value={this.state.stepInterval}
+                onChange={this.setInterval}
+              ></input>
+            </div>
+            <button onClick={this.resetGame("random")}>Randomize!</button>
+            <button onClick={this.resetGame()}>Reset</button>
           </div>
-          <div className='ButtonRow'>
-            <button onClick={this.progressGame}>Step forward by</button>
-            <input
-              type='number'
-              size='1'
-              value={this.state.stepInterval}
-              onChange={this.setInterval}
-            ></input>
-          </div>
-          <button onClick={this.resetGame("random")}>Randomize!</button>
-          <button onClick={this.resetGame()}>Reset</button>
+          <DisplaySettings />
         </div>
       </div>
     );
   }
 }
-const mapPropsToState = ({ grid: { grid } }, props) => ({
+const mapPropsToState = ({ grid: { grid }, display: { color } }, props) => ({
   ...props,
   grid,
+  color,
 });
 export default connect(mapPropsToState, {
   toggleCell,

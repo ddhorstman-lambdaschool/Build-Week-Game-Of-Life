@@ -4,6 +4,7 @@ export const GRID_ACTIONS = {
   LOAD_PRESET: "LOAD_PRESET",
   RESET_GRID: "RESET_GRID",
   RANDOMIZE_GRID: "RANDOMIZE_GRID",
+  RESIZE_GRID: "RESIZE_GRID",
 };
 
 export const loadPreset = preset => ({
@@ -26,4 +27,8 @@ export const toggleCell = coordinates => ({
 export const progressGame = cycles => ({
   type: GRID_ACTIONS.PROGRESS_GAME,
   payload: { cycles },
+});
+export const resizeGrid = side => ({
+  type: GRID_ACTIONS.RESIZE_GRID,
+  payload: { side },
 });

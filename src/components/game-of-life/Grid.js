@@ -2,7 +2,7 @@ import React from "react";
 import GridCell from "./GridCell";
 
 export default function Grid(props) {
-  let { grid, toggleCell = () => {}, size = 8 } = props;
+  let { grid, toggleCell = () => {}, size } = props;
   if (grid.length === 0) return <div />;
   function toggleCurrentCell(e) {
     e.preventDefault();

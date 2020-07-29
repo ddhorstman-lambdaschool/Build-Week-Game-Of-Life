@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
 import gridReducer from "./gridReducer";
-import colorReducer from "./colorReducer";
+import displayReducer from "./displayReducer";
 
-export default combineReducers({ color: colorReducer, grid: gridReducer });
+export default combineReducers({ display: displayReducer, grid: gridReducer });

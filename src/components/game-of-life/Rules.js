@@ -40,5 +40,5 @@ function Rules({color}) {
   );
 }
 
-const mapStateToProps = ({ color: { color }, props }) => ({ ...props, color });
+const mapStateToProps = ({ display: { color }, props }) => ({ ...props, color });
 export default connect(mapStateToProps, null)(Rules);

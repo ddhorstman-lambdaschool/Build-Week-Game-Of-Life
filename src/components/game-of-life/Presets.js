@@ -29,6 +29,6 @@ function Presets(props) {
 }
 
 export default connect(
-  ({ color: { color } }, props) => ({ ...props, color }),
+  ({ display: { color } }, props) => ({ ...props, color }),
   null
 )(Presets);
