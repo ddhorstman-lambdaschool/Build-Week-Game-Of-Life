@@ -28,6 +28,7 @@ const createPresetGrid = (preset, state) => {
   let grid = createGrid(null, state);
   const startX = Math.floor((grid.length - preset.length) / 2);
   const startY = Math.floor((grid[0].length - preset[0].length) / 2);
+  if (startX < 0 || startY < 0) return grid;
   for (let i = 0; i < preset.length; i++) {
     for (let j = 0; j < preset[0].length; j++) {
       grid[i + startX][j + startY] = preset[i][j];

@@ -11,15 +11,22 @@ function DisplaySettings(props) {
     changeCellSize,
     updateColor,
   } = props;
-
+  const [localSide, setLocalSide] = React.useState(side);
+  const [showError, setShowError] = React.useState(false);
   const extractAndUpdateColor = ({ target: { value } }) => updateColor(value);
   const extractAndUpdateCellSize = ({ target: { value } }) => {
     if (value < 1) value = 1;
+    if (value > 10) value = 10;
     changeCellSize(value);
   };
   const extractAndUpdateGridSide = ({ target: { value } }) => {
-    if (value < 25) value = 25;
-    resizeGrid(value);
+    setLocalSide(value);
+    if (value >= 10 && value <= 100) {
+      setShowError(false);
+      resizeGrid(value);
+    } else {
+      setShowError(true);
+    }
   };
   return (
     <div className='DisplaySettings'>
@@ -32,16 +39,21 @@ function DisplaySettings(props) {
         <input
           type='number'
           size='2'
-          value={side}
+          value={localSide}
           onChange={extractAndUpdateGridSide}
         />
         x{side}
       </label>
+      {showError && (
+        <div style={{ color: "red" }}>
+          Must be between 25 and 100 cells
+        </div>
+      )}
       <label>
-        {"Cell Size "}
+        {"Cell Size: "}
         <input
           type='number'
-          size='1'
+          size='2'
           value={cellSize}
           onChange={extractAndUpdateCellSize}
         />
