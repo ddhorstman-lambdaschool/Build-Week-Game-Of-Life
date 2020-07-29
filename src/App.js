@@ -2,17 +2,20 @@ import React from "react";
 import Header from "./components/Header";
 import AlgorithmInfo from "./components/AlgorithmInfo";
 import GameOfLife from "./components/GameOfLife";
+import { Provider } from "react-redux";
+import { createStore } from "redux";
+import rootReducer from "./reducers";
+
+const store = createStore(rootReducer);
+
 function App() {
-  const [color, setColor] = React.useState("#000000");
-  function updateColor({ target: { value } }) {
-    setColor(value);
-    console.log(value);
-  }
   return (
     <div className='App'>
-      <Header color={color} updateColor={updateColor} />
-      <GameOfLife color={color} />
-      <AlgorithmInfo color={color} />
+      <Provider store={store}>
+        <Header />
+        <GameOfLife />
+        <AlgorithmInfo />
+      </Provider>
     </div>
   );
 }

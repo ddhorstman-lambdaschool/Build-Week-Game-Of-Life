@@ -1,7 +1,7 @@
 import React from "react";
+import { connect } from "react-redux";
 
-export default function Rules(props) {
-  let { color } = props;
+function Rules({color}) {
   return (
     <div className='rules'>
       <h2 style={{ color }}>Rules</h2>
@@ -39,3 +39,6 @@ export default function Rules(props) {
     </div>
   );
 }
+
+const mapStateToProps = ({ color: { color }, props }) => ({ ...props, color });
+export default connect(mapStateToProps, null)(Rules);
