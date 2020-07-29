@@ -1,7 +1,10 @@
 import React from "react";
 import Grid from "./Grid";
 
-export default function Preset(props) {
+import { connect } from "react-redux";
+import { loadPreset } from "../../actions";
+
+function Preset(props) {
   const { name, grid, loadPreset, color, size = 7 } = props;
   return (
     <div className='Preset'>
@@ -12,3 +15,7 @@ export default function Preset(props) {
     </div>
   );
 }
+
+export default connect(({ color: { color } }, props) => ({ ...props, color }), {
+  loadPreset,
+})(Preset);

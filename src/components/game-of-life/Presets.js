@@ -1,7 +1,8 @@
 import React from "react";
 import presetDescriptions from "./presetDescriptions";
 import Preset from "./Preset";
-export default function Presets(props) {
+import { connect } from "react-redux";
+function Presets(props) {
   let [currentPreset, setCurrentPreset] = React.useState(
     Object.keys(presetDescriptions)[0]
   );
@@ -21,13 +22,13 @@ export default function Presets(props) {
       </nav>
 
       {presetDescriptions[currentPreset].items.map(p => (
-        <Preset
-          color={props.color}
-          key={p.name}
-          loadPreset={props.loadPreset}
-          {...p}
-        />
+        <Preset key={p.name} {...p} />
       ))}
     </div>
   );
 }
+
+export default connect(
+  ({ color: { color } }, props) => ({ ...props, color }),
+  null
+)(Presets);
