@@ -1,6 +1,8 @@
 import React from "react";
 
-export default function GridCell(props) {
+import { connect } from "react-redux";
+
+function GridCell(props) {
   let { x, y, color, alive, size = 8 } = props;
   return (
     <td
@@ -14,3 +16,8 @@ export default function GridCell(props) {
     // >{alive}</td>
   );
 }
+
+export default connect(
+  ({ color: { color } }, props) => ({ ...props, color }),
+  null
+)(GridCell);

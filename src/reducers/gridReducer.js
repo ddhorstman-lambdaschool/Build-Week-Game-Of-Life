@@ -36,6 +36,7 @@ const createPresetGrid = (preset, state) => {
   return grid;
 };
 const toggleCell = ({ x, y }, { grid }) => {
+  console.log(grid);
   grid[x][y] = grid[x][y] ? 0 : 1;
   return grid;
 };
