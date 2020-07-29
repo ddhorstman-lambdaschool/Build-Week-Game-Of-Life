@@ -90,7 +90,7 @@ export default function gridReducer(state = initialState, action) {
   switch (action.type) {
     case ACTIONS.RESIZE_GRID:
       const { side } = action.payload;
-      console.log("resizing to",side);
+      // console.log("resizing to",side);
       return { ...state, side, grid: createGrid(null, { side }) };
     case ACTIONS.RANDOMIZE_GRID:
       return { ...state, grid: createGrid("random", state) };
